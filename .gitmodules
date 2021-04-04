@@ -4,4 +4,4 @@
 
 [submodule "angr-doc"]
 	path = angr-doc
-	url = https://github.com/angr/angr-doc/
+	url = https://github.com/angr/angr-doc
