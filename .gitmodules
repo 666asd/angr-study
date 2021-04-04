@@ -1,6 +1,6 @@
 [submodule "angr_ctf"]
 	path = angr_ctf
-	url = https://github.com/jakespringer/angr_ctf
+	url = https://github.com/666asd/angr_ctf
 
 [submodule "angr-doc"]
 	path = angr-doc
