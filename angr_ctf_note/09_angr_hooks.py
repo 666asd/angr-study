@@ -69,8 +69,6 @@ def main(argv):
       claripy.BVV(0, 32)
     )
 
-  initial_state.regs.ebx = 0x404000
-
   simulation = project.factory.simgr(initial_state)
 
   def is_successful(state):

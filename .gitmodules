@@ -1,3 +1,6 @@
 [submodule "angr-doc"]
 	path = angr-doc
 	url = https://github.com/angr/angr-doc
+[submodule "AngrCTF_FITM"]
+	path = AngrCTF_FITM
+	url = https://github.com/ZERO-A-ONE/AngrCTF_FITM

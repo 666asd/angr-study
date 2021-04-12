@@ -11,22 +11,22 @@ import claripy
 import sys
 
 def main(argv):
-  path_to_binary = ???
+  path_to_binary = "lib14_angr_shared_library.so"
 
   # The shared library is compiled with position-independent code. You will need
   # to specify the base address. All addresses in the shared library will be
   # base + offset, where offset is their address in the file.
   # (!)
-  base = ???
-  project = angr.Project(path_to_binary, load_options={ 
-    'main_opts' : { 
-      'custom_base_addr' : base 
-    } 
+  base = 0x400000
+  project = angr.Project(path_to_binary, load_options={
+    'main_opts' : {
+      'custom_base_addr' : base
+    }
   })
 
   # Initialize any symbolic values here; you will need at least one to pass to
   # the validate function.
-  ...
+  password_addr = claripy.BVV(0xffffff00, 32)
 
   # Begin the state at the beginning of the validate function, as if it was
   # called by the program. Determine the parameters needed to call validate and
@@ -38,8 +38,10 @@ def main(argv):
   # Hint: int validate(char* buffer, int length) { ...
   # Another hint: the password is 8 bytes long.
   # (!)
-  validate_function_address = ???
-  initial_state = project.factory.call_state(validate_function_address, parameters...)
+  validate_function_address = base + 0x1230
+  initial_state = project.factory.call_state(validate_function_address, password_addr, claripy.BVV(8, 32))
+  password = claripy.BVS("password", 8 * 8)
+  initial_state.memory.store(password_addr, password)
 
   # You will need to add code to inject a symbolic value into the program at the
   # end of the function that constrains eax to equal true (value of 1) just
@@ -47,11 +49,12 @@ def main(argv):
   # 1. Use a hook.
   # 2. Search for the address just before the function returns and then
   #    constrain eax (this may require putting code elsewhere)
-  ...
 
+  initial_state.regs.ebx = 0x404000
   simulation = project.factory.simgr(initial_state)
 
-  success_address = ???
+  success_address = base + 0x12d3
+
   simulation.explore(find=success_address)
 
   if simulation.found:
@@ -60,8 +63,9 @@ def main(argv):
     # Determine where the program places the return value, and constrain it so
     # that it is true. Then, solve for the solution and print it.
     # (!)
-    solution = ???
-    print solution
+    solution_state.add_constraints(solution_state.regs.eax != 0)
+    solution = solution_state.solver.eval(password, cast_to=bytes)
+    print(solution)
   else:
     raise Exception('Could not find the solution')
 

@@ -8,11 +8,11 @@
 - [x] 07_angr_symbolic_file
 - [x] 08_angr_constraints
 - [x] 09_angr_hooks
-- [ ] 10_angr_simprocedures
-- [ ] 11_angr_sim_scanf
-- [ ] 12_angr_veritesting
-- [ ] 13_angr_static_binary
-- [ ] 14_angr_shared_library
-- [ ] 15_angr_arbitrary_read
-- [ ] 16_angr_arbitrary_write
+- [x] 10_angr_simprocedures
+- [x] 11_angr_sim_scanf
+- [x] 12_angr_veritesting
+- [x] 13_angr_static_binary
+- [X] 14_angr_shared_library
+- [X] 15_angr_arbitrary_read
+- [x] 16_angr_arbitrary_write
 - [ ] 17_angr_arbitrary_jump
